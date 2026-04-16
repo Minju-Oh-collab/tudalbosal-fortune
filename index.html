@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>튜달보살의 2026년 직장 운세 | 링고라 튜터링</title>
+<link rel="icon" type="image/png" href="./asset/[링고라] App Icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── 변수 ──────────────────────────────────────── */
+:root {
+  --bg: #EAE9EE;
+  --bg-card: rgba(255,255,255,0.75);
+  --sage: #6A9E9A;
+  --sage-deep: #3A6E68;
+  --peach: #C8788A;
+  --gold: #B88A30;
+  --gold-light: #D8B858;
+  --warm-dark: #28263E;
+  --navy: #2A3A52;
+  --blush: #E8C8D8;
+  --mid-sage: #8CBCB8;
+  --muted: #7878A0;
+  --border: rgba(90,142,138,0.28);
+  --font-display: 'Nanum Myeongjo', serif;
+  --font-hanja: 'Nanum Myeongjo', serif;
+  --font-body: 'Nanum Myeongjo', serif;
+  --shadow: 0 8px 32px rgba(40,38,62,0.10);
+  --shadow-lg: 0 16px 48px rgba(40,38,62,0.14);
+}
+
+/* ── 리셋 ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(180deg, #ECEAEE 0%, #EAE9EE 30%, #E6EDEC 55%, #DAEEE9 78%, #CEE9E2 100%);
+  background-attachment: fixed;
+  color: var(--warm-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── 배경 광택 오버레이 ────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 25% 15%, rgba(255,255,255,0.32) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 75% 85%, rgba(184,224,214,0.18) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 구름 배경 장식 ────────────────────────────── */
+.clouds-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(224,225,245,0.30) 0%, transparent 70%);
+  animation: cloud-drift linear infinite;
+}
+.cloud:nth-child(1) { width: 300px; height: 80px; top: 8%; left: -10%; animation-duration: 60s; }
+.cloud:nth-child(2) { width: 200px; height: 60px; top: 20%; right: -5%; animation-duration: 80s; animation-direction: reverse; }
+.cloud:nth-child(3) { width: 250px; height: 70px; top: 65%; left: -8%; animation-duration: 70s; }
+.cloud:nth-child(4) { width: 180px; height: 50px; top: 80%; right: -5%; animation-duration: 90s; animation-direction: reverse; }
+@keyframes cloud-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(120vw); }
+}
+
+/* 산 장식 */
+.mountain-deco {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+}
+
+/* ── 스텝 공통 ─────────────────────────────────── */
+.step {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding: 40px 20px;
+  animation: step-in 0.6s ease-out;
+}
+.step.active { display: flex; flex-direction: column; align-items: center; }
+@keyframes step-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── STEP 1: 인트로 ─────────────────────────────── */
+#step-1 {
+  justify-content: center;
+  padding-top: 72px;
+  text-align: center;
+  gap: 0;
+}
+
+/* intro-badge 제거됨 */
+
+.character-wrapper {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 32px;
+  animation: float-character 0.9s ease-out 0.1s both;
+}
+.character-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(230,240,238,0.55) 0%, rgba(206,233,226,0.3) 55%, transparent 75%);
+  animation: halo-pulse 4s ease-in-out infinite;
+}
+.character-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 8px 24px rgba(44,34,24,0.10));
+}
+.character-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 40% 30%, #F0E8E0, #D8C8B0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  filter: drop-shadow(0 8px 24px rgba(44,34,24,0.12));
+  position: relative;
+  z-index: 1;
+}
+@keyframes float-character {
+  from { opacity: 0; transform: translateY(24px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes halo-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50%       { transform: scale(1.06); opacity: 1; }
+}
+
+.intro-headline {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 7vw, 36px);
+  font-weight: 800;
+  color: var(--warm-dark);
+  line-height: 1.3;
+  margin-bottom: 20px;
+  animation: step-in 0.8s ease-out 0.3s both;
+}
+.intro-headline em {
+  font-style: normal;
+  color: var(--sage-deep);
+}
+
+.intro-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 320px;
+  margin: 0 auto 36px;
+  animation: step-in 0.8s ease-out 0.4s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--sage-deep) 0%, var(--sage) 100%);
+  color: #FBF7F0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 20px rgba(58,110,104,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: step-in 0.8s ease-out 0.5s both;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(58,110,104,0.4); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary svg { width: 18px; height: 18px; }
+
+.intro-footer-note {
+  margin-top: 24px;
+  font-size: 11px;
+  color: rgba(44,34,24,0.35);
+  animation: step-in 0.8s ease-out 0.6s both;
+}
+
+/* ── STEP 2: 폼 ─────────────────────────────────── */
+#step-2 {
+  justify-content: flex-start;
+  padding-top: 48px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.step-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.step-header h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--warm-dark);
+  margin-bottom: 8px;
+}
+.step-header p {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.step-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.step-divider::before, .step-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+.step-divider-symbol {
+  font-size: 18px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.field-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+.field-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1E1C2E;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.field-group .required-dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  background: var(--peach);
+  border-radius: 50%;
+  margin-left: 4px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.field-group input,
+.field-group select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid rgba(44,34,24,0.15);
+  border-radius: 4px;
+  background: var(--bg-card);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--warm-dark);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.field-group input:focus,
+.field-group select:focus {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(123,168,160,0.15);
+}
+.field-group input.error {
+  border-color: var(--peach);
+  box-shadow: 0 0 0 3px rgba(224,120,104,0.12);
+}
+.field-error {
+  font-size: 11px;
+  color: var(--peach);
+  margin-top: 5px;
+  display: none;
+}
+.field-group.has-error .field-error { display: block; }
+
+/* ── 파일럿 신청 완료 모달 ─────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(40,38,62,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: linear-gradient(160deg, #F0F5F4 0%, #E6F5F0 100%);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: 40px 28px 32px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(40,38,62,0.2);
+  position: relative;
+  animation: modal-in 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.modal-box::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  pointer-events: none;
+}
+@keyframes modal-in {
+  from { transform: scale(0.88) translateY(16px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-icon { font-size: 42px; margin-bottom: 18px; line-height: 1; }
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--warm-dark);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.modal-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.9;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.btn-modal-confirm {
+  background: linear-gradient(135deg, var(--sage-deep) 0%, var(--sage) 100%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 16px rgba(58,110,104,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-modal-confirm:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(58,110,104,0.38); }
+
+/* 마케팅 동의 */
+.consent-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px;
+  background: rgba(123,168,160,0.06);
+  border: 1px solid rgba(123,168,160,0.2);
+  border-radius: 4px;
+  margin-bottom: 28px;
+  cursor: pointer;
+}
+.consent-group input[type=checkbox] {
+  width: 18px; height: 18px;
+  accent-color: var(--sage-deep);
+  flex-shrink: 0;
+  margin-top: 1px;
+  cursor: pointer;
+}
+.consent-label {
+  font-size: 13px;
+  color: #4A4A6A;
+  line-height: 1.7;
+  cursor: pointer;
+}
+.consent-label strong {
+  color: #1E1C2E;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 3px;
+}
+.consent-label .benefit-list {
+  color: var(--sage-deep);
+  font-weight: 700;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 17px;
+  background: linear-gradient(135deg, var(--sage-deep) 0%, #4A9290 100%);
+  color: #F4F8F7;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 20px rgba(58,110,104,0.35);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  position: relative;
+}
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(58,110,104,0.45); }
+.btn-submit:active { transform: translateY(0); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.btn-submit .spinner {
+  display: none;
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.btn-submit.loading .spinner { display: inline-block; }
+@keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+/* ── STEP 3: 산가지 뽑기 ──────────────────────── */
+#step-3 {
+  justify-content: flex-start;
+  padding-top: 60px;
+  text-align: center;
+}
+
+.sangaji-header {
+  margin-bottom: 48px;
+}
+.sangaji-header h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--warm-dark);
+  margin-bottom: 10px;
+}
+.sangaji-header p {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.cup-scene {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 320px;
+  margin-bottom: 40px;
+}
+
+/* 통(컵) */
+.cup {
+  position: relative;
+  width: 110px;
+  z-index: 2;
+}
+.cup-body {
+  height: 80px;
+  background: linear-gradient(135deg, #D4A853 0%, #8B6030 40%, #A07020 70%, #C49030 100%);
+  border-radius: 8px 8px 20px 20px;
+  position: relative;
+  box-shadow: inset 0 -12px 24px rgba(0,0,0,0.25), inset 2px 0 8px rgba(255,255,255,0.1), 0 8px 28px rgba(44,34,24,0.18);
+}
+.cup-body::after {
+  content: '';
+  position: absolute;
+  top: 10px; left: 8px;
+  width: 12px; height: 50px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 100%);
+  border-radius: 8px;
+}
+.cup-rim {
+  height: 18px;
+  background: linear-gradient(180deg, #E8C060 0%, #B08020 100%);
+  border-radius: 50% 50% 4px 4px / 8px 8px 4px 4px;
+  margin-bottom: -2px;
+  box-shadow: 0 -2px 8px rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.15);
+  position: relative;
+}
+.cup-rim::before {
+  content: '';
+  position: absolute;
+  inset: 2px 6px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(80,40,10,0.6) 30%, transparent 70%);
+}
+
+/* 산가지(점대) */
+.sticks-wrapper {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  z-index: 3;
+}
+.stick {
+  width: 10px;
+  height: 200px;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: filter 0.2s;
+  will-change: transform;
+}
+.stick:nth-child(1) {
+  background: linear-gradient(180deg, #D4A040 0%, #8B5820 50%, #C08828 100%);
+  transform: translateX(8px) rotate(-6deg);
+  height: 195px;
+  z-index: 1;
+}
+.stick:nth-child(2) {
+  background: linear-gradient(180deg, #C89030 0%, #7A5018 50%, #B07820 100%);
+  transform: translateX(0) rotate(0deg);
+  height: 210px;
+  z-index: 3;
+}
+.stick:nth-child(3) {
+  background: linear-gradient(180deg, #D8B050 0%, #906830 50%, #C89838 100%);
+  transform: translateX(-8px) rotate(5deg);
+  height: 200px;
+  z-index: 2;
+}
+
+/* 대나무 마디 */
+.stick::before, .stick::after {
+  content: '';
+  position: absolute;
+  left: -1px; right: -1px;
+  height: 5px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 2px;
+}
+.stick::before { top: 55px; }
+.stick::after  { top: 125px; }
+
+/* 마디 추가 라인 */
+.stick span {
+  display: block;
+  position: absolute;
+  left: -1px; right: -1px;
+  height: 4px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 2px;
+  top: 175px;
+}
+
+@keyframes stick-wiggle {
+  0%   { transform: var(--base-transform); }
+  15%  { transform: var(--base-transform) rotate(-4deg) translateY(-8px); }
+  35%  { transform: var(--base-transform) rotate(3deg) translateY(-6px); }
+  55%  { transform: var(--base-transform) rotate(-2deg) translateY(-4px); }
+  75%  { transform: var(--base-transform) rotate(1deg) translateY(-2px); }
+  100% { transform: var(--base-transform); }
+}
+.stick:nth-child(1) { --base-transform: translateX(8px) rotate(-6deg); }
+.stick:nth-child(2) { --base-transform: translateX(0) rotate(0deg); }
+.stick:nth-child(3) { --base-transform: translateX(-8px) rotate(5deg); }
+
+.stick:hover { filter: brightness(1.2); animation: stick-wiggle 0.9s ease-in-out; }
+
+@keyframes stick-pull {
+  0%   { transform: var(--base-transform); opacity: 1; }
+  30%  { transform: translateX(0) translateY(-50px) rotate(8deg) scale(1.05); opacity: 1; }
+  100% { transform: translateX(0) translateY(-500px) rotate(25deg) scale(0.8); opacity: 0; }
+}
+.stick.pulling {
+  animation: stick-pull 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+  pointer-events: none;
+}
+
+.sangaji-hint {
+  font-size: 13px;
+  color: rgba(40,38,62,0.65);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* ── 브랜드 로고 ─────────────────────────────────── */
+.brand-mark {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+}
+.brand-mark img {
+  height: 16px;
+  width: auto;
+  display: block;
+  opacity: 0.75;
+}
+.result-brand {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.result-brand img {
+  height: 15px;
+  width: auto;
+  display: block;
+  opacity: 0.70;
+}
+
+/* ── 푸터 ─────────────────────────────────────────── */
+.page-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 16px 20px 28px;
+  font-size: 11px;
+  color: rgba(40,38,62,0.28);
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+
+/* ── STEP 4: 운세 결과 ──────────────────────────── */
+@keyframes fortune-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#step-4 {
+  justify-content: flex-start;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  animation-name: fortune-reveal;
+  animation-duration: 2.0s;
+  animation-timing-function: ease-in-out;
+}
+
+.result-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.fortune-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 2px solid var(--gold);
+  border-radius: 2px;
+  padding: 36px 28px 32px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-lg);
+}
+.fortune-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* 모서리 장식 */
+.fortune-card::after {
+  content: '✦';
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  color: var(--gold);
+  font-size: 16px;
+  padding: 0 8px;
+  line-height: 1;
+}
+.corner-ornament {
+  position: absolute;
+  width: 18px; height: 18px;
+  color: var(--gold);
+  font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.corner-ornament.tl { top: 12px; left: 12px; }
+.corner-ornament.tr { top: 12px; right: 12px; }
+.corner-ornament.bl { bottom: 12px; left: 12px; }
+.corner-ornament.br { bottom: 12px; right: 12px; }
+
+.fortune-number {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.fortune-card-name {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.fortune-hanja {
+  font-family: var(--font-hanja);
+  font-size: clamp(24px, 6vw, 30px);
+  font-weight: 700;
+  color: var(--sage-deep);
+  letter-spacing: 0.15em;
+  display: block;
+  margin-bottom: 6px;
+}
+.fortune-korean {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.fortune-keyword {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.keyword-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(196,151,58,0.15) 0%, rgba(196,151,58,0.08) 100%);
+  border: 1px solid rgba(196,151,58,0.4);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 2px;
+  letter-spacing: 0.12em;
+}
+
+.fortune-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 0 auto 24px;
+}
+
+.fortune-body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 2;
+  color: #3A3858;
+}
+.fortune-body p {
+  margin-bottom: 20px;
+}
+.fortune-body p:last-child { margin-bottom: 0; }
+
+/* CTA 섹션 */
+.cta-card {
+  background: linear-gradient(135deg, var(--sage-deep) 0%, #2E5C58 100%);
+  border-radius: 4px;
+  padding: 32px 28px;
+  text-align: center;
+  color: var(--bg-card);
+  box-shadow: 0 8px 32px rgba(58,110,104,0.3);
+}
+.cta-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: rgba(251,247,240,0.6);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(17px, 4.5vw, 20px);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  color: #FBF7F0;
+}
+.cta-lead {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.90);
+  word-break: keep-all;
+  margin-bottom: 16px;
+}
+.cta-body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 2.0;
+  color: rgba(255,255,255,0.90);
+  word-break: keep-all;
+  margin-bottom: 28px;
+}
+.cta-body strong {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #EEF4F2 0%, #E4EFEC 100%);
+  color: var(--sage-deep);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 16px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 20px rgba(20,60,55,0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+}
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(20,60,55,0.35); }
+
+.result-share-note {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 12px;
+  color: rgba(44,34,24,0.35);
+}
+
+/* ── 로딩 오버레이 ────────────────────────────── */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(234,233,238,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  flex-direction: column;
+  gap: 20px;
+}
+.loading-overlay.visible { display: flex; }
+.loading-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(123,168,160,0.2);
+  border-top-color: var(--sage);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.loading-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* ── 반응형 ───────────────────────────────────── */
+@media (max-width: 360px) {
+  .character-wrapper { width: 200px; height: 200px; }
+  .fortune-card { padding: 28px 20px 24px; }
+  .cta-card { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 배경 요소 -->
+<div class="clouds-bg">
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+</div>
+<svg class="mountain-deco" viewBox="0 0 800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 원경 — 먼 산, 안개에 잠긴 듯 -->
+  <path d="M0 160 L0 125 Q45 108 80 90 Q105 76 128 82 Q152 90 168 78 Q192 62 218 52 Q248 38 272 54 Q296 70 318 60 Q345 46 375 30 Q408 12 438 34 Q462 52 488 44 Q514 34 542 48 Q568 62 592 52 Q618 38 648 50 Q672 62 700 54 Q728 44 758 60 Q782 72 800 65 L800 160 Z"
+        fill="rgba(140,175,168,0.30)"/>
+  <!-- 중경 — 봉우리들이 겹치며 수묵화 원근감 -->
+  <path d="M0 160 L0 145 Q38 138 65 126 Q88 116 105 124 Q124 134 142 120 Q165 102 188 114 Q212 128 235 112 Q258 94 280 106 Q302 120 328 103 Q356 82 378 96 Q398 110 422 96 Q448 78 472 92 Q495 106 518 94 Q542 80 565 94 Q590 110 615 96 Q638 80 662 94 Q685 108 710 94 Q734 78 758 92 Q780 104 800 98 L800 160 Z"
+        fill="rgba(95,148,142,0.42)"/>
+  <!-- 근경 — 가장 짙은 능선 -->
+  <path d="M0 160 L0 155 Q25 150 48 144 Q68 138 82 146 Q98 155 115 144 Q134 130 152 142 Q170 154 188 140 Q210 122 228 136 Q246 150 265 135 Q286 116 305 130 Q322 144 342 128 Q364 108 384 122 Q403 136 424 121 Q446 104 466 118 Q486 132 508 116 Q530 98 550 112 Q570 128 592 112 Q614 94 634 108 Q654 124 676 108 Q698 90 718 105 Q738 120 760 106 Q780 92 800 104 L800 160 Z"
+        fill="rgba(58,110,104,0.55)"/>
+</svg>
+
+<!-- 로딩 오버레이 -->
+<div class="loading-overlay" id="loading">
+  <div class="loading-spinner"></div>
+  <p class="loading-text">운세를 불러오는 중...</p>
+</div>
+
+<!-- ── STEP 1: 인트로 ─────────────────────────── -->
+<div id="step-1" class="step active">
+  <div class="brand-mark">
+    <img src="./asset/Lingora + Tutoring.svg" alt="링고라 튜터링">
+  </div>
+  <div class="character-wrapper">
+    <img src="./asset/tudalbosal.png" alt="튜달보살" class="character-img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="character-placeholder" style="display:none">🙏</div>
+  </div>
+
+  <h1 class="intro-headline">
+    튜달보살의<br><em>2026년 직장 운세</em>
+  </h1>
+
+  <p class="intro-sub">
+    2026년,<br>직장에서는 어떤 기운이 흐르고 있을까요?<br>
+    튜달보살이 당신의 올 한 해 직장 운세를<br>
+    풀어드립니다.
+  </p>
+
+  <button class="btn-primary" onclick="goToStep(2)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a8 8 0 1 0 0 16M12 8v4l3 3"/></svg>
+    운세 확인하기
+  </button>
+
+  <p class="intro-footer-note">본 운세는 엔터테인먼트 목적으로 제공됩니다.</p>
+</div>
+
+<!-- ── STEP 2: 폼 ─────────────────────────────── -->
+<div id="step-2" class="step">
+  <div class="form-container">
+
+    <div class="step-header">
+      <h2>정보를 입력해주세요</h2>
+      <p>아래 정보를 입력하면 운세를 확인할 수 있습니다.</p>
+    </div>
+
+    <div class="step-divider"><span class="step-divider-symbol">✦</span></div>
+
+    <form id="fortune-form" novalidate>
+
+      <div class="field-group" id="fg-name">
+        <label>성함 <span class="required-dot"></span></label>
+        <input type="text" id="field-name" placeholder="홍길동" autocomplete="name">
+        <p class="field-error">성함을 입력해 주세요.</p>
+      </div>
+
+      <div class="field-group" id="fg-company">
+        <label>회사명 <span class="required-dot"></span></label>
+        <!-- 공공 API(data.go.kr) 미사용: 키 발급 필요 + QR 오프라인 환경 불안정 → 직접 입력 -->
+        <input type="text" id="field-company" placeholder="(주)회사명" autocomplete="organization">
+        <p class="field-error">회사명을 입력해 주세요.</p>
+      </div>
+
+      <div class="field-group" id="fg-dept">
+        <label>소속 부서 <span class="required-dot"></span></label>
+        <input type="text" id="field-dept" placeholder="">
+        <p class="field-error">소속 부서를 입력해 주세요.</p>
+      </div>
+
+      <div class="field-group" id="fg-position">
+        <label>직급 및 직책 <span class="required-dot"></span></label>
+        <input type="text" id="field-position" placeholder="">
+        <p class="field-error">직급 및 직책을 입력해 주세요.</p>
+      </div>
+
+      <div class="field-group" id="fg-email">
+        <label>회사 이메일 <span class="required-dot"></span></label>
+        <input type="email" id="field-email" placeholder="hong@company.com" inputmode="email">
+        <p class="field-error" id="email-error">올바른 이메일을 입력해 주세요.</p>
+      </div>
+
+      <div class="field-group" id="fg-phone">
+        <label>연락처 <span class="required-dot"></span></label>
+        <input type="tel" id="field-phone" placeholder="010-0000-0000" inputmode="tel" maxlength="13">
+        <p class="field-error">올바른 휴대폰 번호를 입력해 주세요.</p>
+      </div>
+
+      <label class="consent-group">
+        <input type="checkbox" id="field-consent">
+        <span class="consent-label">
+          <strong>마케팅 수신 동의 (선택)</strong>
+          <span class="benefit-list">무료 HR 뉴스레터, 교육 자료, 웨비나 및 이벤트 소식</span>을 받아보실 수 있습니다.
+        </span>
+      </label>
+
+      <button type="submit" class="btn-submit">
+        운세 확인하기
+        <span class="spinner"></span>
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<!-- ── STEP 3: 산가지 뽑기 ───────────────────── -->
+<div id="step-3" class="step">
+  <div class="sangaji-header">
+    <h2>점대를 한 개 뽑아보세요</h2>
+    <p>셋 중 하나를 선택하면<br>2026년 직장 운세가 펼쳐집니다.</p>
+  </div>
+
+  <div class="cup-scene">
+    <div style="position:relative; display:flex; flex-direction:column; align-items:center;">
+      <div class="sticks-wrapper">
+        <div class="stick" data-idx="0"><span></span></div>
+        <div class="stick" data-idx="1"><span></span></div>
+        <div class="stick" data-idx="2"><span></span></div>
+      </div>
+      <div class="cup">
+        <div class="cup-rim"></div>
+        <div class="cup-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sangaji-hint">손가락으로 점대를 터치하세요</p>
+</div>
+
+<!-- ── STEP 4: 운세 결과 ─────────────────────── -->
+<div id="step-4" class="step">
+  <div class="result-brand">
+    <img src="./asset/Lingora + Tutoring.svg" alt="링고라 튜터링">
+  </div>
+  <div class="result-container">
+
+    <div class="fortune-card">
+      <div class="corner-ornament tl">✦</div>
+      <div class="corner-ornament tr">✦</div>
+      <div class="corner-ornament bl">✦</div>
+      <div class="corner-ornament br">✦</div>
+
+      <div class="fortune-card-name">
+        <span class="fortune-hanja" id="fortune-hanja"></span>
+        <span class="fortune-korean" id="fortune-korean"></span>
+      </div>
+
+      <div class="fortune-keyword">
+        <span class="keyword-badge" id="fortune-keyword"></span>
+      </div>
+
+      <div class="fortune-divider"></div>
+
+      <div class="fortune-body" id="fortune-body"></div>
+    </div>
+
+    <div class="cta-card">
+      <h3 class="cta-title">2026년, 조직의 외국어 역량도<br>점검해볼 타이밍입니다.</h3>
+      <p class="cta-lead">부담없이 링고라 튜터링을 경험해 보세요.</p>
+      <p class="cta-body">파일럿 수강 3회 완료 시, <strong>신세계 상품권 3만원권</strong>을 드립니다.</p>
+      <!-- 파일럿 신청 URL: 추후 href="#"를 실제 URL로 교체하세요 -->
+      <a href="#" class="btn-cta" onclick="handlePilotClick(event)">무료 파일럿 1초만에 신청하기</a>
+    </div>
+
+    <p class="result-share-note">본 운세는 엔터테인먼트 목적으로 제공됩니다.</p>
+  </div>
+</div>
+
+<!-- ── 푸터 ──────────────────────────────────── -->
+<footer class="page-footer">
+  Copyright © 2026 (주)마켓디자이너스. All rights reserved.
+</footer>
+
+<!-- ── 파일럿 신청 완료 모달 ──────────────────── -->
+<div id="pilot-modal" class="modal-overlay" onclick="handleModalOverlayClick(event)">
+  <div class="modal-box">
+    <h3 class="modal-title">무료 파일럿 신청이<br>완료되었습니다.</h3>
+    <p class="modal-body">남겨주신 연락처로 안내를 도와드리겠습니다.<br>편하신 시간에 수업을 경험해 보시고<br>기분 좋은 혜택도 꼭 놓치지 마세요.</p>
+    <button class="btn-modal-confirm" onclick="closePilotModal()">확인</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// ⚙️  설정 — 배포 후 아래 URL을 입력하세요
+// ═══════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+// ── UTM 파싱 ──────────────────────────────────
+const utm = (() => {
+  const p = new URLSearchParams(location.search);
+  return {
+    source:   p.get('utm_source')   || '',
+    medium:   p.get('utm_medium')   || '',
+    campaign: p.get('utm_campaign') || '',
+    content:  p.get('utm_content')  || ''
+  };
+})();
+
+// ── 상태 ──────────────────────────────────────
+let currentFormData = {};
+
+// ── 스텝 이동 ─────────────────────────────────
+function goToStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── 로딩 ──────────────────────────────────────
+function setLoading(v) {
+  document.getElementById('loading').classList.toggle('visible', v);
+}
+
+// ── 전화번호 포맷 ──────────────────────────────
+function formatPhone(raw) {
+  const digits = raw.replace(/\D/g, '').slice(0, 11);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 7) return digits.slice(0,3) + '-' + digits.slice(3);
+  return digits.slice(0,3) + '-' + digits.slice(3,7) + '-' + digits.slice(7);
+}
+
+document.getElementById('field-phone').addEventListener('input', function() {
+  const pos = this.selectionStart;
+  const prev = this.value;
+  this.value = formatPhone(this.value);
+  // 커서 위치 유지 (대략적)
+  try { this.setSelectionRange(this.value.length, this.value.length); } catch(e) {}
+});
+
+// ── 유효성 검사 ───────────────────────────────
+function validateForm() {
+  let ok = true;
+
+  const fields = [
+    { id: 'name',     fg: 'fg-name',     check: v => v.trim().length > 0 },
+    { id: 'company',  fg: 'fg-company',  check: v => v.trim().length > 0 },
+    { id: 'dept',     fg: 'fg-dept',     check: v => v.trim().length > 0 },
+    { id: 'position', fg: 'fg-position', check: v => v.trim().length > 0 },
+    { id: 'email',    fg: 'fg-email',    check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: 'phone',    fg: 'fg-phone',    check: v => /^010-\d{4}-\d{4}$/.test(v) }
+  ];
+
+  fields.forEach(f => {
+    const el = document.getElementById('field-' + f.id);
+    const fg = document.getElementById(f.fg);
+    const valid = f.check(el.value);
+    fg.classList.toggle('has-error', !valid);
+    if (!valid) ok = false;
+  });
+
+  return ok;
+}
+
+// ── 운세 해시 ─────────────────────────────────
+function getFortuneIndex(name, company) {
+  const combined = name + company;
+  let hash = 0;
+  for (let i = 0; i < combined.length; i++) {
+    hash = (hash * 31 + combined.charCodeAt(i)) % 10007;
+  }
+  return (hash % 15) + 1;
+}
+
+// ── 데이터 저장 ───────────────────────────────
+async function saveData(data) {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    // 개발 모드: localStorage 임시 저장
+    const saved = JSON.parse(localStorage.getItem('fortune_entries') || '[]');
+    saved.push({ ...data, ts: new Date().toISOString() });
+    localStorage.setItem('fortune_entries', JSON.stringify(saved));
+    return;
+  }
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      // text/plain 사용 → CORS preflight 우회
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(data)
+    });
+  } catch(e) {
+    console.warn('저장 실패:', e);
+  }
+}
+
+// ── 폼 제출 ───────────────────────────────────
+document.getElementById('fortune-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!validateForm()) return;
+
+  const name    = document.getElementById('field-name').value.trim();
+  const company = document.getElementById('field-company').value.trim();
+  const fortuneId = getFortuneIndex(name, company);
+
+  currentFormData = {
+    name, company,
+    department: document.getElementById('field-dept').value.trim(),
+    position:   document.getElementById('field-position').value.trim(),
+    email:      document.getElementById('field-email').value.trim(),
+    phone:      document.getElementById('field-phone').value.trim(),
+    marketingConsent: document.getElementById('field-consent').checked,
+    fortuneId,
+    utm_source:   utm.source,
+    utm_medium:   utm.medium,
+    utm_campaign: utm.campaign,
+    utm_content:  utm.content
+  };
+
+  const btn = this.querySelector('.btn-submit');
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  await saveData(currentFormData);
+
+  btn.disabled = false;
+  btn.classList.remove('loading');
+
+  goToStep(3);
+  initSangaji(fortuneId);
+});
+
+// ── 산가지 ────────────────────────────────────
+function initSangaji(fortuneId) {
+  const sticks = document.querySelectorAll('.stick');
+  sticks.forEach(s => {
+    s.classList.remove('pulling');
+    s.style.opacity = '1';
+    s.style.pointerEvents = '';
+  });
+
+  sticks.forEach(stick => {
+    stick.onclick = function() {
+      sticks.forEach(s => s.style.pointerEvents = 'none');
+      stick.classList.add('pulling');
+      setTimeout(() => {
+        // 나머지 점대 fade out
+        sticks.forEach(s => {
+          if (s !== stick) {
+            s.style.transition = 'opacity 0.4s';
+            s.style.opacity = '0';
+          }
+        });
+      }, 300);
+      setTimeout(() => {
+        showFortune(fortuneId);
+        // STEP 3 서서히 사라지기
+        const s3 = document.getElementById('step-3');
+        s3.style.transition = 'opacity 1.4s ease-out';
+        s3.style.opacity = '0';
+        // STEP 3 페이드아웃 완료 후 STEP 4 등장
+        setTimeout(() => {
+          s3.classList.remove('active');
+          s3.style.opacity = '';
+          s3.style.transition = '';
+          document.getElementById('step-4').classList.add('active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1400);
+      }, 500);
+    };
+  });
+}
+
+// ── 운세 표시 ────────────────────────────────
+function showFortune(id) {
+  const f = fortunes.find(x => x.id === id) || fortunes[0];
+
+  // 카드 이름 파싱: "木曜昇天 (목요승천)" → 한자 / 한글
+  const m = f.card.match(/^(.+?)\s*\((.+?)\)$/);
+  document.getElementById('fortune-hanja').textContent   = m ? m[1] : f.card;
+  document.getElementById('fortune-korean').textContent  = m ? `(${m[2]})` : '';
+  document.getElementById('fortune-keyword').textContent = f.keyword;
+
+  const bodyEl = document.getElementById('fortune-body');
+  bodyEl.innerHTML = f.body.split('\n\n').map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+}
+
+// ── 파일럿 모달 ───────────────────────────────
+function handlePilotClick(e) {
+  e.preventDefault();
+  document.getElementById('pilot-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePilotModal() {
+  document.getElementById('pilot-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleModalOverlayClick(e) {
+  if (e.target === e.currentTarget) closePilotModal();
+}
+
+// ── 운세 데이터 15종 ──────────────────────────
+const fortunes = [
+  { id:1, card:"木曜昇天 (목요승천)", keyword:"약진의 기운",
+    body:`올 하반기, 당신의 기운이 서서히 차오르기 시작합니다. 그동안 보이지 않는 곳에서 쌓아온 노력이 드디어 빛을 발할 때가 왔습니다. 오랫동안 기다려온 인정과 기회가 생각보다 가까운 곳에 있습니다.\n\n7~8월은 다소 분주하겠으나, 그 바쁨이 곧 기회의 씨앗이 됩니다. 주변의 시선이 당신에게 향하는 시기이니, 평소보다 한 발짝 더 앞서 준비하는 자세가 필요합니다.\n\n하반기 후반으로 갈수록 주변의 평가가 달라집니다. 지금까지의 결과물이 스스로도 놀라울 만한 방식으로 인정받게 되니, 자신감을 잃지 마세요. 귀인의 기운이 직장 안에 있으니 가까운 동료와의 관계를 소중히 여기시길 바랍니다.` },
+  { id:2, card:"金星入室 (금성입실)", keyword:"성과의 기운",
+    body:`올 하반기는 그간의 땀과 노력이 눈에 보이는 결과로 돌아오는 시기입니다. 목표로 삼았던 일이 예상보다 순조롭게 풀리는 흐름이 보이니, 지레 포기하거나 의심하지 마세요.\n\n금전적, 직무적 성과 모두 올라가는 상승세가 뚜렷합니다. 특히 상반기에 시작했던 프로젝트가 하반기에 결실을 맺게 될 가능성이 큽니다. 중간에 작은 난관이 있더라도 흔들리지 말고 완주하시길 바랍니다.\n\n주변에서 먼저 당신을 찾아오는 일이 많아질 시기입니다. 그 요청들이 곧 새로운 기회로 연결되니, 작은 부탁이라도 성의껏 임하는 태도가 중요합니다.` },
+  { id:3, card:"貴人相助 (귀인상조)", keyword:"협력의 기운",
+    body:`올 하반기, 당신 곁에 귀인이 나타납니다. 이미 가까이 있는 사람일 수도 있고, 새로운 인연일 수도 있습니다. 혼자 짊어지려 했던 일들이 누군가의 도움으로 의외로 쉽게 풀리는 경험을 하게 됩니다.\n\n직장 내 인간관계에서 긍정적인 변화가 감지됩니다. 그동안 거리감이 있었던 사람과 예상치 못한 방식으로 가까워지거나, 새로운 팀원이나 파트너가 든든한 버팀목이 되어줄 수 있습니다.\n\n하반기에는 협업 프로젝트에서 두드러진 성과가 나옵니다. 혼자 빛나려 하기보다 함께 성장하는 방향으로 에너지를 쏟을 때 더 큰 보상이 따라옵니다. 당신의 성실함이 주변 사람들의 마음을 움직이는 시기입니다.` },
+  { id:4, card:"百花齊放 (백화제방)", keyword:"역량 만개의 기운",
+    body:`숨겨왔던 재능이 드디어 꽃을 피울 때가 왔습니다. 올 하반기는 당신이 가진 능력이 다양한 방면에서 빛나는 시기입니다. 스스로는 당연하게 여겼던 강점을 주변에서 높이 평가하는 상황이 자주 생깁니다.\n\n새로운 역할이나 책임이 주어질 수 있는 시기입니다. 처음에는 부담스럽게 느껴지더라도, 그것이 당신의 성장을 위한 발판임을 기억하세요. 하반기가 끝날 무렵에는 스스로도 놀라운 성취를 이루게 됩니다.\n\n특히 8월과 10월 사이에 중요한 기회가 찾아옵니다. 그 순간을 놓치지 않으려면 평소에 자신의 이야기를 정리해두는 것이 좋습니다. 무르익은 실력을 표현하는 연습도 올 하반기의 숙제입니다.` },
+  { id:5, card:"轉禍爲福 (전화위복)", keyword:"역전의 기운",
+    body:`어렵고 지쳤다고 느낀 적이 있으셨나요? 그 시간이 사실은 도약을 위한 준비 기간이었습니다. 올 하반기, 그간의 힘든 경험들이 의미 있는 전환점으로 바뀌는 흐름이 보입니다.\n\n직장에서 뜻대로 되지 않았던 일들이 예상치 못한 방향으로 풀리기 시작합니다. 때로는 멀리 돌아가는 것처럼 보이는 길이 사실 가장 빠른 지름길일 때가 있습니다. 지금 당신이 바로 그런 시점에 있습니다.\n\n주변의 시선이나 평가에 너무 얽매이지 마세요. 올 하반기는 타인의 기대보다 자신의 속도와 방향을 믿는 것이 더 중요한 시기입니다. 하반기 말로 갈수록 그 선택이 옳았음을 증명하는 결과들이 나타날 것입니다.` },
+  { id:6, card:"厚積薄發 (후적박발)", keyword:"결실의 기운",
+    body:`오래도록 쌓아온 것들이 드디어 터져 나옵니다. 당신은 꾸준히 노력해온 사람입니다. 눈에 띄지 않았어도, 인정받지 못했어도, 그 시간들이 올 하반기의 결실로 이어집니다.\n\n성과를 급하게 내려 하지 않아도 됩니다. 올 하반기는 기다려온 것들이 자연스럽게 당신 앞에 놓이는 시기입니다. 특히 연말이 가까워질수록 그 결실이 더욱 선명하게 보이게 됩니다.\n\n당신의 꾸준함을 알아보는 사람이 반드시 나타납니다. 그 인연을 가볍게 여기지 마세요. 올 하반기의 핵심은 묵묵히 걷는 것, 그리고 그 과정에서 자신을 믿는 것입니다.` },
+  { id:7, card:"龍騰四海 (용등사해)", keyword:"대운의 기운",
+    body:`올 하반기, 당신에게 큰 기운이 들어옵니다. 이런 기회는 쉽게 오지 않습니다. 적극적으로 도전하고 움직일 준비를 하세요. 가만히 기다리기만 하면 지나칠 수 있는 시기입니다.\n\n직장 안팎에서 새로운 제안이나 기회들이 생겨납니다. 모든 것을 다 잡으려 하지 말고, 자신의 핵심 강점과 연결된 기회를 선별하는 안목이 필요합니다. 한 가지에 집중할 때 그 결과는 배가 됩니다.\n\n특히 외부와의 연결, 새로운 네트워크를 통한 기회에 주목하세요. 올 하반기는 혼자만의 공간을 벗어날수록 더 많은 것을 얻게 됩니다. 세상은 당신을 기다리고 있습니다.` },
+  { id:8, card:"花開富貴 (화개부귀)", keyword:"풍요의 기운",
+    body:`올 하반기는 당신이 심어온 씨앗들이 꽃을 피우는 시기입니다. 물질적, 정신적 풍요로움이 함께 찾아옵니다. 오랫동안 기다려온 보상이 이제 눈앞에 다가오고 있습니다.\n\n직장에서의 평판이 올라가는 시기입니다. 주변에서 당신의 이름이 오르내리는 상황이 생기는데, 대부분 긍정적인 맥락입니다. 그 평판이 새로운 기회로 연결되는 흐름을 놓치지 마세요.\n\n경제적으로도 안정감을 찾아가는 시기입니다. 계획했던 것들이 예상 범위 안에서 이루어지고, 생각지 못한 소득이 생기기도 합니다. 올 하반기는 넉넉한 마음으로 임하세요. 나눌수록 더 많이 돌아오는 운이 따릅니다.` },
+  { id:9, card:"吉星高照 (길성고조)", keyword:"행운의 기운",
+    body:`길한 별이 당신 위에 떠 있습니다. 올 하반기, 좋은 일들이 예상보다 빠르게, 그리고 자연스럽게 찾아옵니다. 특별히 애쓰지 않아도 일이 잘 풀리는 경험을 하게 됩니다.\n\n중요한 자리나 결정적인 순간에 특히 운이 좋습니다. 발표, 면접, 제안, 협상 등 승부처에서 실력 이상의 결과가 나오는 경우가 있으니, 기회가 왔을 때 용기 있게 나서세요.\n\n단, 이 운을 당연하게 여기지 마세요. 행운은 준비된 사람에게 더 크게 작용합니다. 올 하반기의 기운을 최대한 활용하려면 자신의 실력을 꾸준히 쌓아가는 노력이 병행되어야 합니다.` },
+  { id:10, card:"風生水起 (풍생수기)", keyword:"순풍의 기운",
+    body:`올 하반기, 당신의 삶에 좋은 흐름이 시작됩니다. 막혔던 것들이 뚫리고, 고여 있던 것들이 움직이기 시작합니다. 오랫동안 답답했다면, 이제 그 시간이 끝나갑니다.\n\n직장에서 원하던 포지션이나 프로젝트에 가까워지는 흐름이 보입니다. 때를 놓치지 않으려면 자신의 의사를 좀 더 적극적으로 표현하는 것이 필요합니다. 침묵보다 표현이 기회를 만드는 시기입니다.\n\n관계에서도 순풍이 붑니다. 불편했던 관계가 자연스럽게 회복되거나, 새로운 사람과의 만남이 예상치 못한 도움이 됩니다. 올 하반기는 사람을 통해 일이 풀리는 경험을 하게 될 것입니다.` },
+  { id:11, card:"萬事如意 (만사여의)", keyword:"소원 성취의 기운",
+    body:`올 하반기, 당신이 마음속으로 바라던 것들이 하나씩 이루어집니다. 이루어질 것이라는 믿음을 포기하지 않았던 것이 지금 힘이 됩니다. 작은 소원부터 차곡차곡 이루어지는 기쁨을 맛보게 됩니다.\n\n직장에서 오래 기다려온 변화가 드디어 시작됩니다. 그 변화가 처음에는 낯설고 불안하게 느껴질 수 있지만, 결국 당신이 원하던 방향으로 가고 있음을 확인하게 됩니다.\n\n올 하반기는 자신을 믿는 연습이 필요한 시기입니다. 스스로 한계를 정하지 마세요. 당신이 그릴 수 있는 그림이 생각보다 훨씬 크고 아름다울 수 있습니다. 하늘의 기운이 당신 편입니다.` },
+  { id:12, card:"鳳凰來儀 (봉황래의)", keyword:"새로운 시작의 기운",
+    body:`봉황은 새로운 시대의 시작을 알립니다. 올 하반기, 당신의 직장 생활에도 새로운 챕터가 열립니다. 지금까지와는 다른 방식으로 일하거나, 다른 역할을 맡게 되는 변화가 찾아올 수 있습니다.\n\n처음에는 낯설고 어색할 수 있지만, 그 변화가 당신을 한 단계 성장시키는 계기가 됩니다. 새로운 것을 두려워하기보다, 그것이 가져오는 기회에 집중하세요.\n\n올 하반기는 자신을 새롭게 소개할 수 있는 기회들이 많아집니다. 그 기회에서 당신이 어떤 사람인지, 어떤 가치를 가지고 있는지 당당하게 표현하세요. 새로운 시작은 항상 용기 있는 사람에게 먼저 찾아옵니다.` },
+  { id:13, card:"雨後晴天 (우후청천)", keyword:"맑음의 기운",
+    body:`비 온 뒤에 땅이 굳는 법입니다. 힘들었던 시간이 있었다면, 이제 그 시간이 가져다 줄 단단함을 믿으세요. 올 하반기는 지나온 고비들이 자양분이 되어 새로운 빛을 만들어 냅니다.\n\n직장에서 오해받거나 억울했던 일들이 점차 제자리를 찾아갑니다. 시간이 해결해주는 일들이 있다는 것을 올 하반기에 직접 경험하게 됩니다. 섣불리 포기하지 않길 잘했다는 생각이 드는 순간이 찾아옵니다.\n\n맑아진 하늘 아래에서 당신의 빛도 더욱 선명해집니다. 그동안 보이지 않았던 것들이 보이고, 들리지 않았던 것들이 들리기 시작합니다. 올 하반기는 마음의 여유를 되찾는 시기이기도 합니다.` },
+  { id:14, card:"紫氣東來 (자기동래)", keyword:"기운 상승의 기운",
+    body:`동쪽에서 자주빛 기운이 찾아옵니다. 좋은 소식과 기회가 예상치 못한 방향에서 오는 시기입니다. 열려 있는 마음으로 주변을 살피세요. 지나치기 쉬운 곳에 보물이 숨어 있습니다.\n\n올 하반기, 당신의 에너지 수준이 높아집니다. 일이 잘 될 것 같은 느낌, 뭔가 될 것 같은 직감이 드는 날들이 많아집니다. 그 직감을 무시하지 마세요. 오래 경험을 쌓아온 당신의 감각이 이제 날카로워지고 있습니다.\n\n인정받고 싶었던 분야에서 드디어 빛이 납니다. 조용히, 그러나 분명하게 당신의 존재가 각인되는 하반기가 됩니다. 자주빛 기운은 당신과 함께합니다.` },
+  { id:15, card:"旭日昇天 (욱일승천)", keyword:"도약의 기운",
+    body:`떠오르는 태양처럼, 올 하반기 당신은 약진합니다. 지금까지의 경험과 실력이 본격적으로 발화하는 시기가 왔습니다. 스스로를 작게 보지 마세요. 주변에서 보는 당신은 생각보다 훨씬 크고 빛나는 존재입니다.\n\n직장에서 당신의 입지가 달라지는 경험을 합니다. 예전에는 발언하기 어려웠던 자리에서도 자연스럽게 목소리를 낼 수 있게 됩니다. 그 목소리에 힘이 실리는 하반기입니다.\n\n올 하반기의 기운은 당신이 오랫동안 꿈꿔온 모습에 가장 가까워지는 시기입니다. 두 발을 땅에 딛고, 눈은 저 높은 곳을 향하세요. 떠오르는 해처럼, 막을 수 없는 당신만의 빛이 있습니다.` }
+];
+</script>
+</body>
+</html>
