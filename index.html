@@ -883,6 +883,72 @@ body::before {
   color: rgba(44,34,24,0.35);
 }
 
+/* ── 공유 버튼 ───────────────────────────────── */
+.btn-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  background: transparent;
+  border: 1.5px solid rgba(58,110,104,0.40);
+  border-radius: 4px;
+  color: var(--sage-deep);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-share:hover { background: rgba(58,110,104,0.06); border-color: var(--sage-deep); }
+.btn-share svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+/* ── 내 운세 보기 버튼 (공유 방문자 전용) ──────── */
+.btn-my-fortune {
+  display: none;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--sage-deep) 0%, #4A9290 100%);
+  color: #F4F8F7;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 20px rgba(58,110,104,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-my-fortune:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(58,110,104,0.45); }
+
+/* ── 복사 완료 토스트 ────────────────────────── */
+.share-toast {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: rgba(40,38,62,0.88);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+  z-index: 2000;
+  white-space: nowrap;
+}
+.share-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* ── 로딩 오버레이 ────────────────────────────── */
 .loading-overlay {
   position: fixed;
@@ -1111,6 +1177,18 @@ body::before {
       <div class="fortune-body" id="fortune-body"></div>
     </div>
 
+    <!-- 내 운세 보기 (공유 링크로 진입한 방문자에게만 표시) -->
+    <button class="btn-my-fortune" id="btn-my-fortune" onclick="goToMyFortune()">내 운세 보기</button>
+
+    <!-- 공유하기 -->
+    <button class="btn-share" onclick="shareResult()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+      </svg>
+      이 운세 공유하기
+    </button>
+
     <div class="cta-card">
       <h3 class="cta-title">2026년, 조직의 외국어 역량도<br>점검해볼 타이밍입니다.</h3>
       <p class="cta-lead">부담없이 링고라 튜터링을 경험해 보세요.</p>
@@ -1122,6 +1200,9 @@ body::before {
     <p class="result-share-note">본 운세는 엔터테인먼트 목적으로 제공됩니다.</p>
   </div>
 </div>
+
+<!-- ── 복사 완료 토스트 ───────────────────────── -->
+<div class="share-toast" id="share-toast"></div>
 
 <!-- ── 푸터 ──────────────────────────────────── -->
 <footer class="page-footer">
@@ -1159,6 +1240,7 @@ const utm = (() => {
 
 // ── 상태 ──────────────────────────────────────
 let currentFormData = {};
+let currentFortuneId = null;
 
 // ── 스텝 이동 ─────────────────────────────────
 function goToStep(n) {
@@ -1326,6 +1408,7 @@ function initSangaji(fortuneId) {
 
 // ── 운세 표시 ────────────────────────────────
 function showFortune(id) {
+  currentFortuneId = id;
   const f = fortunes.find(x => x.id === id) || fortunes[0];
 
   // 카드 이름 파싱: "木曜昇天 (목요승천)" → 한자 / 한글
@@ -1350,6 +1433,36 @@ function closePilotModal() {
 }
 function handleModalOverlayClick(e) {
   if (e.target === e.currentTarget) closePilotModal();
+}
+
+// ── 공유 기능 ─────────────────────────────────
+function shareResult() {
+  const url = location.origin + location.pathname + '?share=' + currentFortuneId;
+  const koreanEl = document.getElementById('fortune-korean');
+  const fortuneName = koreanEl ? koreanEl.textContent.replace(/[()]/g, '').trim() : '직장 운세';
+
+  if (navigator.share) {
+    navigator.share({
+      title: '튜달보살의 2026년 직장 운세',
+      text: `내 2026년 직장 운세는 '${fortuneName}' 🔮 너도 확인해봐!`,
+      url
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url)
+      .then(() => showToast('링크가 복사되었습니다'))
+      .catch(() => showToast('링크: ' + url));
+  }
+}
+
+function goToMyFortune() {
+  location.href = location.origin + location.pathname;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('share-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
 }
 
 // ── 운세 데이터 15종 ──────────────────────────
@@ -1385,6 +1498,16 @@ const fortunes = [
   { id:15, card:"旭日昇天 (욱일승천)", keyword:"도약의 기운",
     body:`떠오르는 태양처럼, 올 하반기 당신은 약진합니다. 지금까지의 경험과 실력이 본격적으로 발화하는 시기가 왔습니다. 스스로를 작게 보지 마세요. 주변에서 보는 당신은 생각보다 훨씬 크고 빛나는 존재입니다.\n\n직장에서 당신의 입지가 달라지는 경험을 합니다. 예전에는 발언하기 어려웠던 자리에서도 자연스럽게 목소리를 낼 수 있게 됩니다. 그 목소리에 힘이 실리는 하반기입니다.\n\n올 하반기의 기운은 당신이 오랫동안 꿈꿔온 모습에 가장 가까워지는 시기입니다. 두 발을 땅에 딛고, 눈은 저 높은 곳을 향하세요. 떠오르는 해처럼, 막을 수 없는 당신만의 빛이 있습니다.` }
 ];
+
+// ── ?share= 파라미터 감지 (공유 링크로 진입 시) ──
+(function () {
+  const shareId = parseInt(new URLSearchParams(location.search).get('share'));
+  if (shareId >= 1 && shareId <= 15) {
+    showFortune(shareId);
+    goToStep(4);
+    document.getElementById('btn-my-fortune').style.display = 'flex';
+  }
+})();
 </script>
 </body>
 </html>
