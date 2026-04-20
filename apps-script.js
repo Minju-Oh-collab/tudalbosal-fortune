@@ -26,7 +26,8 @@ const HEADERS = [
   '회사 이메일',
   '연락처',
   '마케팅 수신 동의',
-  '배정 운세 번호'
+  '배정 운세 번호',
+  '파일럿 신청'
 ];
 
 // 운세 이름 매핑 (번호 → 이름)
@@ -90,6 +91,27 @@ function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
 
+    // 파일럿 신청 업데이트 요청
+    if (data.type === 'pilot') {
+      const ss    = SpreadsheetApp.getActiveSpreadsheet();
+      const sheet = ss.getSheets()[0];
+      const lastRow = sheet.getLastRow();
+      const nameCol    = HEADERS.indexOf('성함') + 1;
+      const companyCol = HEADERS.indexOf('회사명') + 1;
+      const pilotCol   = HEADERS.indexOf('파일럿 신청') + 1;
+
+      for (let i = 2; i <= lastRow; i++) {
+        if (sheet.getCell(i, nameCol).getValue() === data.name &&
+            sheet.getCell(i, companyCol).getValue() === data.company) {
+          sheet.getCell(i, pilotCol).setValue('Y');
+          break;
+        }
+      }
+      return ContentService
+        .createTextOutput(JSON.stringify({ result: 'updated' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
     const ss    = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheets()[0];
 
@@ -114,7 +136,8 @@ function doPost(e) {
       data.email          || '',
       data.phone          || '',
       data.marketingConsent ? 'Y' : 'N',
-      data.fortuneId      || ''
+      data.fortuneId      || '',
+      'N'
     ]);
 
     // 열 너비 자동 조정 (최초 100행 이후 성능 고려해 조건부 실행)
