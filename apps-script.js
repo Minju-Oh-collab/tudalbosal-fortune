@@ -26,12 +26,7 @@ const HEADERS = [
   '회사 이메일',
   '연락처',
   '마케팅 수신 동의',
-  '배정 운세 번호',
-  '운세명',
-  'utm_source',
-  'utm_medium',
-  'utm_campaign',
-  'utm_content'
+  '배정 운세 번호'
 ];
 
 // 운세 이름 매핑 (번호 → 이름)
@@ -119,12 +114,7 @@ function doPost(e) {
       data.email          || '',
       data.phone          || '',
       data.marketingConsent ? 'Y' : 'N',
-      data.fortuneId      || '',
-      FORTUNE_NAMES[data.fortuneId] || '',
-      data.utm_source     || '',
-      data.utm_medium     || '',
-      data.utm_campaign   || '',
-      data.utm_content    || ''
+      data.fortuneId      || ''
     ]);
 
     // 열 너비 자동 조정 (최초 100행 이후 성능 고려해 조건부 실행)
