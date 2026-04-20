@@ -1319,7 +1319,7 @@ async function saveData(data) {
   try {
     await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      // text/plain 사용 → CORS preflight 우회
+      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(data)
     });
