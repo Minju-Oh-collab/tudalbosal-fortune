@@ -909,11 +909,12 @@ body::before {
 /* ── 내 운세 보기 버튼 (공유 방문자 전용) ──────── */
 .btn-my-fortune {
   display: none;
+  justify-content: center;
   width: 100%;
   padding: 16px;
   margin-bottom: 12px;
-  background: linear-gradient(135deg, var(--sage-deep) 0%, #4A9290 100%);
-  color: #F4F8F7;
+  background: linear-gradient(135deg, #f3d9a6 0%, #e8b95e 100%);
+  color: #583b00;
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
@@ -921,7 +922,6 @@ body::before {
   border-radius: 4px;
   cursor: pointer;
   letter-spacing: 0.06em;
-  box-shadow: 0 4px 20px rgba(58,110,104,0.35);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .btn-my-fortune:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(58,110,104,0.45); }
