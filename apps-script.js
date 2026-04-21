@@ -26,8 +26,7 @@ const HEADERS = [
   '회사 이메일',
   '연락처',
   '마케팅 수신 동의',
-  '배정 운세 번호',
-  '파일럿 신청'
+  '배정 운세 번호'
 ];
 
 // 운세 이름 매핑 (번호 → 이름)
@@ -91,24 +90,30 @@ function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
 
-    // 파일럿 신청 업데이트 요청
+    // 파일럿 신청 기록 요청
     if (data.type === 'pilot') {
-      const ss    = SpreadsheetApp.getActiveSpreadsheet();
-      const sheet = ss.getSheets()[0];
-      const lastRow = sheet.getLastRow();
-      const nameCol    = HEADERS.indexOf('성함') + 1;
-      const companyCol = HEADERS.indexOf('회사명') + 1;
-      const pilotCol   = HEADERS.indexOf('파일럿 신청') + 1;
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-      for (let i = 2; i <= lastRow; i++) {
-        if (sheet.getCell(i, nameCol).getValue() === data.name &&
-            sheet.getCell(i, companyCol).getValue() === data.company) {
-          sheet.getCell(i, pilotCol).setValue('Y');
-          break;
-        }
+      // "파일럿 신청자" 탭 없으면 생성
+      let pilotSheet = ss.getSheetByName('파일럿 신청자');
+      if (!pilotSheet) {
+        pilotSheet = ss.insertSheet('파일럿 신청자');
+        const hdr = pilotSheet.getRange(1, 1, 1, 3);
+        hdr.setValues([['타임스탬프', '성함', '회사명']]);
+        hdr.setBackground('#3A6E68');
+        hdr.setFontColor('#FFFFFF');
+        hdr.setFontWeight('bold');
+        pilotSheet.setFrozenRows(1);
       }
+
+      pilotSheet.appendRow([
+        new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+        data.name    || '',
+        data.company || ''
+      ]);
+
       return ContentService
-        .createTextOutput(JSON.stringify({ result: 'updated' }))
+        .createTextOutput(JSON.stringify({ result: 'pilot_saved' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
@@ -136,8 +141,7 @@ function doPost(e) {
       data.email          || '',
       data.phone          || '',
       data.marketingConsent ? 'Y' : 'N',
-      data.fortuneId      || '',
-      'N'
+      data.fortuneId      || ''
     ]);
 
     // 열 너비 자동 조정 (최초 100행 이후 성능 고려해 조건부 실행)
