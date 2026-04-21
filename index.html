@@ -1464,10 +1464,29 @@ function shareResult() {
       text: `제 운세는 '${fortuneName}' 🔮 2026년 직장 운세, 당신도 확인해보세요!`,
       url
     }).catch(() => {});
-  } else {
+  } else if (navigator.clipboard) {
     navigator.clipboard.writeText(url)
       .then(() => showToast('링크가 복사되었습니다'))
-      .catch(() => showToast('링크: ' + url));
+      .catch(() => fallbackCopy(url));
+  } else {
+    fallbackCopy(url);
+  }
+}
+
+function fallbackCopy(url) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('링크가 복사되었습니다');
+  } catch {
+    showToast('링크: ' + url);
   }
 }
 
