@@ -98,18 +98,32 @@ function doPost(e) {
       let pilotSheet = ss.getSheetByName('파일럿 신청자');
       if (!pilotSheet) {
         pilotSheet = ss.insertSheet('파일럿 신청자');
-        const hdr = pilotSheet.getRange(1, 1, 1, 3);
-        hdr.setValues([['타임스탬프', '성함', '회사명']]);
+        const hdr = pilotSheet.getRange(1, 1, 1, 6);
+        hdr.setValues([['타임스탬프', '성함', '회사명', '소속 부서', '직급/직책', '회사 이메일']]);
         hdr.setBackground('#3A6E68');
         hdr.setFontColor('#FFFFFF');
         hdr.setFontWeight('bold');
         pilotSheet.setFrozenRows(1);
       }
 
+      // 중복 신청 방지: 같은 이름+회사 이미 있으면 스킵
+      const pilotData = pilotSheet.getDataRange().getValues();
+      const isDuplicate = pilotData.slice(1).some(row =>
+        row[1] === data.name && row[2] === data.company
+      );
+      if (isDuplicate) {
+        return ContentService
+          .createTextOutput(JSON.stringify({ result: 'duplicate' }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+
       pilotSheet.appendRow([
         new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
-        data.name    || '',
-        data.company || ''
+        data.name       || '',
+        data.company    || '',
+        data.department || '',
+        data.position   || '',
+        data.email      || ''
       ]);
 
       return ContentService
